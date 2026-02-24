@@ -1,10 +1,9 @@
-FROM node:22-bookworm-slim
+FROM node:22-bookworm
 
-# Install Python and build tools required by better-sqlite3 (node-gyp)
+# Install build tools required by better-sqlite3 (node-gyp)
 RUN apt-get update && apt-get install -y \
     python3 \
-    make \
-    g++ \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
