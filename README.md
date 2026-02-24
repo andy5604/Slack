@@ -17,6 +17,23 @@ A full-featured Slack-like productivity web application with real-time messaging
 - **User profiles** — Set display name, status, and status emoji
 - **Authentication** — Register/login with JWT tokens
 
+## Deploy to Railway (free — no computer needed!)
+
+Railway lets you host this app on the internet for free, all from a web browser.
+
+### Steps:
+
+1. **Create a free Railway account** at https://railway.app (sign up with GitHub)
+2. **Fork this repo** on GitHub (click the Fork button at top right)
+3. On Railway, click **"New Project"** → **"Deploy from GitHub repo"**
+4. Select your forked repo
+5. Railway auto-builds and deploys — takes ~2 minutes
+6. Click the generated `.railway.app` URL to open your live app!
+
+> **Optional:** In Railway → Settings → Variables, set `JWT_SECRET` to a long random string for better security.
+
+---
+
 ## Tech Stack
 
 - **Frontend**: React 18
@@ -25,17 +42,17 @@ A full-featured Slack-like productivity web application with real-time messaging
 - **Database**: SQLite (via better-sqlite3)
 - **Auth**: JWT + bcrypt
 
-## Quick Start
+## Run Locally (if you have a computer)
 
 ```bash
 # Install dependencies
 npm run install:all
 
 # Start backend (port 3001)
-npm run start:server
+npm run start:dev:server
 
 # In another terminal, start frontend (port 3000)
-npm run start:client
+npm run start:dev:client
 ```
 
 Then open http://localhost:3000

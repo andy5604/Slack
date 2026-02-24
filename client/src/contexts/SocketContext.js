@@ -12,7 +12,11 @@ export function SocketProvider({ children }) {
   useEffect(() => {
     if (!token) return;
 
-    const s = io('http://localhost:3001', { auth: { token } });
+    // In production, connect to the same host. In dev, connect to localhost:3001
+    const serverUrl = process.env.NODE_ENV === 'production'
+      ? window.location.origin
+      : 'http://localhost:3001';
+    const s = io(serverUrl, { auth: { token } });
     setSocket(s);
 
     s.on('presence:update', ({ userId, online }) => {

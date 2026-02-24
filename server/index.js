@@ -5,6 +5,7 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
+const path = require('path');
 const { db, initDatabase } = require('./database');
 
 const app = express();
@@ -13,8 +14,8 @@ const io = new Server(server, {
   cors: { origin: '*', methods: ['GET', 'POST'] }
 });
 
-const JWT_SECRET = 'slack-clone-secret-key-2024';
-const PORT = 3001;
+const JWT_SECRET = process.env.JWT_SECRET || 'slack-clone-secret-key-2024';
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -448,6 +449,13 @@ io.on('connection', (socket) => {
     onlineUsers.delete(userId);
     io.emit('presence:update', { userId, online: false });
   });
+});
+
+// Serve React build in production
+const clientBuild = path.join(__dirname, '..', 'client', 'build');
+app.use(express.static(clientBuild));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientBuild, 'index.html'));
 });
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
