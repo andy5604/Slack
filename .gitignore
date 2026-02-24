@@ -1,0 +1,8 @@
+node_modules/
+server/node_modules/
+client/node_modules/
+server/slack.db
+client/build/
+.env
+*.log
+.DS_Store
